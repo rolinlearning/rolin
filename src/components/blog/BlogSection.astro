@@ -1,0 +1,89 @@
+---
+const articles = [
+  {
+    title: "Cómo empezar en el desarrollo web: consideraciones generales",
+    url: "/como-empezar-en-el-desarrollo-web-consideraciones-generales",
+    description: "Iniciar tu camino en el desarrollo web puede parecer abrumador al principio, pero la clave es comenzar con la mentalidad adecuada. El primer paso no consiste en escribir código, sino en...",
+  },
+  {
+    title: "Tailwind CSS: From Side-Project Byproduct to Multi-Million Dollar Business",
+    url: "/tailwindcss-from-side-project-byproduct-to-multi-mullion-dollar-business",
+    description: "The story of how a couple of failed SaaS ideas and a bunch of ugly Less stylesheets turned into my life's work.",
+  },
+  {
+    title: "Methods Are Affordances, Not Abilities",
+    url: "/2017/01/24/methods-are-affordances-not-abilities",
+    description: "How thinking that “an object shouldn’t be able to save itself” exposes a fundamental misunderstanding of OOP, and how you should think instead.",
+  },
+  {
+    title: "Renderless Components in Vue.js",
+    url: "/renderless-components-in-vuejs",
+    description: "How to create Vue.js components that are easy to customize by splitting presentation and behavior into separate components.",
+  },
+  {
+    title: "The $61,392 Book Launch That Let Me Quit My Job",
+    url: "/the-book-launch-that-let-me-quit-my-job",
+    description: "The story of how I launched my first product and quit my job to create books and courses full-time.",
+  },
+];
+---
+<section class="mt-16 space-y-12 max-w-3xl mx-auto px-6 md:px-8 lg:px-12">
+  <div class="space-y-6">
+    <h1 class="text-3xl md:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100 tracking-tight">
+      Posts
+    </h1>
+    <div class="text-lg leading-relaxed space-y-4">
+      <p class="font-light text-gray-700 dark:text-gray-300">
+        A lo largo de los años he publicado muchos posts, algunos más notables que otros.
+      </p>
+      <p class="font-light text-gray-700 dark:text-gray-300">
+        Aqui les comparto algunas de mis favoritas:
+      </p>
+    </div>
+  </div>
+
+  <div class="space-y-12 divide-y divide-gray-100 dark:divide-gray-700">
+    {articles.map((article) => (
+      <article class="group pt-12 first:pt-0">
+        <div class="space-y-4">
+          <a 
+            href={article.url} 
+            class="block group-hover:-translate-y-0.5 transition-transform duration-300"
+          >
+            <h2 class="text-xl md:text-2xl font-medium text-gray-900 dark:text-white leading-snug">
+              {article.title}
+            </h2>
+          </a>
+          
+          <p class="text-base text-gray-600 dark:text-gray-400 leading-relaxed font-light">
+            {article.description}
+          </p>
+          
+          <div class="pt-2">
+            <a 
+              href={article.url} 
+              class="inline-flex items-center text-sm text-gray-700 hover:text-gray-900 
+                     dark:text-gray-300 dark:hover:text-gray-100 transition-colors duration-300"
+            >
+              <span class="border-b border-gray-300 dark:border-gray-500 group-hover:border-gray-600 
+                          dark:group-hover:border-gray-400 transition-colors duration-300">
+                Leer este post
+              </span>
+              <svg 
+                class="ml-1 w-4 h-4 transform group-hover:translate-x-0.5 transition-transform duration-300" 
+                viewBox="0 0 20 20" 
+                fill="currentColor"
+              >
+                <path 
+                  fill-rule="evenodd" 
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" 
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

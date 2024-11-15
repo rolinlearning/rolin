@@ -1,0 +1,90 @@
+---
+const podcasts = [
+  {
+    title: "The Indie Hackers Podcast",
+    url: "/podcast/indie-hackers",
+    description: "Conversations with founders of profitable internet businesses.",
+  },
+  {
+    title: "Full Stack Radio",
+    url: "/podcast/full-stack-radio",
+    description: "A podcast for developers interested in building great products.",
+  },
+  {
+    title: "Syntax - Tasty Web Development Treats",
+    url: "/podcast/syntax",
+    description: "A fun and engaging podcast about web development and the tech industry.",
+  },
+  {
+    title: "The Changelog",
+    url: "/podcast/the-changelog",
+    description: "Open source moves fast. Keep up with it.",
+  },
+  {
+    title: "CodeNewbie",
+    url: "/podcast/codenewbie",
+    description: "Stories and advice from people on their coding journeys.",
+  },
+];
+---
+
+<section class="mt-16 space-y-12 max-w-3xl mx-auto px-6 md:px-8 lg:px-12">
+  <div class="space-y-6">
+    <h1 class="text-3xl md:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100 tracking-tight">
+      Podcasts
+    </h1>
+    <div class="text-lg leading-relaxed space-y-4">
+      <p class="font-light text-gray-700 dark:text-gray-300">
+        I've been a guest on a few podcasts over the years, discussing web development, indie hacking, and everything in between.
+      </p>
+      <p class="font-light text-gray-700 dark:text-gray-300">
+        Here are some of my favorite episodes.
+      </p>
+    </div>
+  </div>
+
+  <div class="space-y-12 divide-y divide-gray-100 dark:divide-gray-700">
+    {podcasts.map((podcast) => (
+      <article class="group pt-12 first:pt-0">
+        <div class="space-y-4">
+          <a 
+            href={podcast.url} 
+            class="block group-hover:-translate-y-0.5 transition-transform duration-300"
+          >
+            <h2 class="text-xl md:text-2xl font-medium text-gray-900 dark:text-white leading-snug">
+              {podcast.title}
+            </h2>
+          </a>
+          
+          <p class="text-base text-gray-600 dark:text-gray-400 leading-relaxed font-light">
+            {podcast.description}
+          </p>
+          
+          <div class="pt-2">
+            <a 
+              href={podcast.url} 
+              class="inline-flex items-center text-sm text-gray-700 hover:text-gray-900 
+                     dark:text-gray-300 dark:hover:text-gray-100 transition-colors duration-300"
+            >
+              <span class="border-b border-gray-300 dark:border-gray-500 group-hover:border-gray-600 
+                          dark:group-hover:border-gray-400 transition-colors duration-300">
+                Listen to episode
+              </span>
+              <svg 
+                class="ml-1 w-4 h-4 transform group-hover:translate-x-0.5 transition-transform duration-300" 
+                viewBox="0 0 20 20" 
+                fill="currentColor"
+              >
+                <path 
+                  fill-rule="evenodd" 
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" 
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
