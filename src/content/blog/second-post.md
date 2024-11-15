@@ -1,17 +1,17 @@
 ---
-title: "Cómo empezar en el desarrollo web: consideraciones generales"
-description: "Iniciar tu camino en el desarrollo web puede parecer abrumador al principio, pero la clave es comenzar con la mentalidad adecuada. El primer paso no consiste en escribir código, sino en..."
+title: "Post 2"
+description: "description 2"
 pubDate: 2024-03-15
 author: "My name in this file"
 image: "cat-black.png"
 tags: ["desarrollo web", "empezar", "aprendizaje"]
 ---
 
-## My First Post
+# My Second Post
 
 Welcome to my first blog post! Here I'll share my thoughts about building with Astro.
 
-### Why Astro?
+## Why Astro?
 
 Astro is an amazing static site generator that allows you to use your favorite frontend frameworks while delivering lightning-fast performance.
 

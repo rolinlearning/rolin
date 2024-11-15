@@ -1,4 +1,3 @@
-<!-- NavigationMenu.vue -->
 <template>
   <nav class="mt-6 md:mt-8">
     <ul class="flex items-center justify-center md:justify-start space-x-8">
