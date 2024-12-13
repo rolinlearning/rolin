@@ -34,8 +34,24 @@ const podcastCollection = defineCollection({
   })
 });
 
+const projectCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string().min(1, 'Project title is required'),
+    description: z.string().min(1, 'Project description is required'),
+    techs: z.array(z.string()).default([]),
+    githubLink: z.string().url().optional(),
+    demoLink: z.string().url().optional(),
+    featured: z.boolean().optional().default(false),
+    projectType: z.enum(['frontend', 'backend', 'fullstack', 'mobile', 'other']),
+    startDate: z.date().optional(),
+    endDate: z.date().optional(),
+    draft: z.boolean().optional().default(false)
+  })
+});
 
 export const collections = {
   blog: blogCollection,
-  podcast: podcastCollection
+  podcast: podcastCollection, 
+  project: projectCollection
 };

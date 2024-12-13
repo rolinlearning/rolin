@@ -1,0 +1,71 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "../../layouts/Layout.astro"
+import { getCollection, type CollectionEntry } from "astro:content";
+
+interface Props {
+  project: CollectionEntry<'project'>
+}
+
+export const getStaticPaths = ( async () => {
+  const projects = await getCollection('project')
+  return projects.map((project: CollectionEntry<'project'>) => ({
+    params: {slug: project.slug},
+    props: {project}
+  }));
+}) satisfies GetStaticPaths;
+
+const {project} = Astro.props
+const {Content} = await project.render()
+---
+<Layout title={project.data.title}>
+  <article class="max-w-3xl mx-auto px-6 sm:px-6 lg:px-12 py-12 prose dark:prose-invert">
+    <header class="mb-8">
+      <h1>{project.data.title}</h1>
+      <div class="text-sm text-gray-500 flex items-center space-x-2">
+        <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+          {project.data.projectType}
+        </span>
+        {project.data.startDate && (
+          <span>Started: {project.data.startDate.toLocaleDateString()}</span>
+        )}
+        {project.data.endDate && (
+          <span>Completed: {project.data.endDate.toLocaleDateString()}</span>
+        )}
+      </div>
+      <div class="mt-4 flex space-x-4">
+        {project.data.githubLink && (
+          <a 
+            href={project.data.githubLink} 
+            target="_blank" 
+            class="btn btn-outline"
+          >
+            GitHub Repository
+          </a>
+        )}
+        {project.data.demoLink && (
+          <a 
+            href={project.data.demoLink} 
+            target="_blank" 
+            class="btn btn-primary"
+          >
+            Live Demo
+          </a>
+        )}
+      </div>
+    </header>
+    
+    <div class="mb-6">
+      <h2>Technologies Used</h2>
+      <div class="flex flex-wrap gap-2">
+        {project.data.techs.map((tech: string) => (
+          <span class="text-sm bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <Content/>
+  </article>
+</Layout>

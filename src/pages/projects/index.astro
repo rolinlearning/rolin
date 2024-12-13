@@ -2,7 +2,17 @@
 // src/pages/projects/index.astro
 import Layout from '../../layouts/Layout.astro';
 import ProjectSection from '../../components/project/ProjectSection.astro';
+import { getCollection } from "astro:content";
+
+const projects = await getCollection('project', (entry) => !entry.data.draft);
+const sortedProjects = projects.sort((a,b) => 
+  (b.data.endDate || new Date()).valueOf() - (a.data.endDate || new Date()).valueOf()
+);
+
+// Optional: Filter for featured projects first
+const featuredProjects = sortedProjects.filter(project => project.data.featured);
+const nonFeaturedProjects = sortedProjects.filter(project => !project.data.featured);
 ---
-<Layout title="Proyectos" description="Mis proyectos construidos">
-  <ProjectSection/>
+<Layout title="My Projects">
+    <ProjectSection projects={[...featuredProjects, ...nonFeaturedProjects]} />
 </Layout>
