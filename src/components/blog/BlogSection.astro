@@ -44,11 +44,14 @@ const { posts } = Astro.props;
                 </span>
               )}
             </div>
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 
+            <h2>
+              <a href={`/blog/${post.slug}`}
+              class="text-xl font-bold text-gray-900 dark:text-white mb-2 
                        group-hover:text-blue-600 dark:group-hover:text-blue-400 
-                       transition-colors duration-300">
-              <a href={`/blog/${post.slug}`}>
+                       transition-colors duration-10"
+              >
                 {post.data.title}
+                
               </a>
             </h2>
           </header>
