@@ -1,0 +1,49 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "../../layouts/Layout.astro"
+import { getCollection, type CollectionEntry } from "astro:content";
+import { formatDate } from "../../utils/date";
+
+interface Props {
+  podcast: CollectionEntry<'podcast'>
+}
+
+export const getStaticPaths = ( async () => {
+  const podcasts = await getCollection('podcast')
+  return podcasts.map((podcast: CollectionEntry<'podcast'>) => ({
+    params: {slug: podcast.slug},
+    props: {podcast}
+  }));
+}) satisfies GetStaticPaths;
+
+const {podcast} = Astro.props
+const {Content} = await podcast.render()
+---
+<Layout title={podcast.data.title}>
+  <article class="max-w-3xl mx-auto px-6 sm:px-6 lg:px-12 py-12 prose dark:prose-invert">
+    <header class="mb-8">
+      <h1>{podcast.data.title}</h1>
+      <div class="text-sm text-gray-500 flex items-center space-x-2">
+        <time datetime={podcast.data.pubDate.toISOString()}>
+          {formatDate(podcast.data.pubDate)}
+        </time>
+        <span>•</span>
+        <span>Episode {podcast.data.episodeNumber}</span>
+        <span>•</span>
+        <span>{podcast.data.author}</span>
+      </div>
+      {podcast.data.audioUrl && (
+        <div class="mt-4">
+          <audio controls class="w-full">
+            <source src={podcast.data.audioUrl} type="audio/mpeg"/>
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      )}
+    </header>
+    <div class="mb-6">
+      <p>{podcast.data.description}</p>
+    </div>
+    <Content/>
+  </article>
+</Layout>

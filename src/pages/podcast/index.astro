@@ -1,8 +1,10 @@
 ---
-// src/pages/podcast/index.astro
 import Layout from '../../layouts/Layout.astro';
 import PodcastSection from '../../components/podcast/PodcastSection.astro';
+import { getCollection } from 'astro:content';
+const podcasts = await getCollection('podcast', (entry) => !entry.data.draft);
+const sortedPodcasts = podcasts.sort((a,b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 ---
-<Layout title="Podcast - Your Name" description="Ultimos podcasts">
-  <PodcastSection/>
+<Layout title="Podcast Episodes">
+    <PodcastSection podcasts={sortedPodcasts} />
 </Layout>
