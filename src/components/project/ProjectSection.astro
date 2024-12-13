@@ -19,11 +19,14 @@ const { projects } = Astro.props;
   </div>
   <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
     {projects.map((project) => (
-      <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+      // bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group
+      <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl group">
         <div class="p-6">
           <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-semibold">
-              <a href={`/projects/${project.slug}`} class="hover:text-blue-600 dark:text-white">
+            <h3 class="">
+              <a href={`/projects/${project.slug}`} class="text-xl font-bold text-gray-900 dark:text-white mb-2 
+                       group-hover:text-blue-600 dark:group-hover:text-blue-400 
+                       transition-colors duration-10">
                 {project.data.title}
               </a>
             </h3>
