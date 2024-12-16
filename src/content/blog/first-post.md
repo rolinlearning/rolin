@@ -3,13 +3,11 @@ title: "Cómo empezar en el desarrollo web: consideraciones generales"
 description: "Iniciar tu camino en el desarrollo web puede parecer abrumador al principio, pero la clave es comenzar con la mentalidad adecuada. El primer paso no consiste en escribir código, sino en..."
 pubDate: 2024-03-15
 author: "Rolin Espinoza"
-image: "cat-black.png"
+image: "/laptop.jpg"
 tags: ["desarrollo web", "empezar", "aprendizaje"]
 ---
 
-#### My First Post
-
-Welcome to my first blog post! Here I'll share my thoughts about building with Astro.
+Welcome to my first blog post! Here I'll share my thoughts about building with Astro. 
 
 #### Why Astro?
 
