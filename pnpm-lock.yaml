@@ -41,6 +41,9 @@ importers:
       vue:
         specifier: ^3.5.12
         version: 3.5.12(typescript@5.6.3)
+      vue-router:
+        specifier: ^4.5.0
+        version: 4.5.0(vue@3.5.12(typescript@5.6.3))
     devDependencies:
       '@typescript-eslint/parser':
         specifier: ^8.13.0
@@ -905,6 +908,9 @@ packages:
 
   '@vue/compiler-ssr@3.5.12':
     resolution: {integrity: sha512-eLwc7v6bfGBSM7wZOGPmRavSWzNFF6+PdRhE+VFJhNCgHiF8AM7ccoqcv5kBXA2eWUfigD7byekvf/JsOfKvPA==}
+
+  '@vue/devtools-api@6.6.4':
+    resolution: {integrity: sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==}
 
   '@vue/devtools-core@7.6.3':
     resolution: {integrity: sha512-C7FOuh3Z+EmXXzDU9eRjHQL7zW7/CFovM6yCNNpUb+zXxhrn4fiqTum+a3gNau9DuzYfEtQXwZ9F7MeK0JKYVw==}
@@ -2790,6 +2796,11 @@ packages:
   vscode-uri@3.0.8:
     resolution: {integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==}
 
+  vue-router@4.5.0:
+    resolution: {integrity: sha512-HDuk+PuH5monfNuY+ct49mNmkCRK4xJAV9Ts4z9UFc4rzdDnxQLyCMGGc8pKhZhHTVzfanpNwB/lwqevcBwI4w==}
+    peerDependencies:
+      vue: ^3.2.0
+
   vue@3.5.12:
     resolution: {integrity: sha512-CLVZtXtn2ItBIi/zHZ0Sg1Xkb7+PU32bJJ8Bmy7ts3jxXTcbfsEfBivFYYWz1Hur+lalqGAh65Coin0r+HRUfg==}
     peerDependencies:
@@ -3799,6 +3810,8 @@ snapshots:
     dependencies:
       '@vue/compiler-dom': 3.5.12
       '@vue/shared': 3.5.12
+
+  '@vue/devtools-api@6.6.4': {}
 
   '@vue/devtools-core@7.6.3(vite@5.4.10)(vue@3.5.12(typescript@5.6.3))':
     dependencies:
@@ -6014,6 +6027,11 @@ snapshots:
   vscode-uri@2.1.2: {}
 
   vscode-uri@3.0.8: {}
+
+  vue-router@4.5.0(vue@3.5.12(typescript@5.6.3)):
+    dependencies:
+      '@vue/devtools-api': 6.6.4
+      vue: 3.5.12(typescript@5.6.3)
 
   vue@3.5.12(typescript@5.6.3):
     dependencies:
