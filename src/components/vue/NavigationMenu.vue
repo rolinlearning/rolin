@@ -2,12 +2,21 @@
   <nav class="mt-6 md:mt-8">
     <ul class="flex items-center justify-center md:justify-start space-x-8">
       <li>
-        <a href="/" class="group flex items-center space-x-2" :class="[
+        <a href="/" class="group relative flex items-center space-x-2" :class="[
           isCurrentRoute('/')
             ? 'text-blue-600 dark:text-blue-400'
             : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
         ]">
-          <HomeIcon class="w-8 h-8 transition-transform duration-300" :class="{ 'scale-110': isCurrentRoute('/') }" />
+          <HomeIcon class="w-8 h-8 transition-transform duration-300" :class="{ 'scale-110': isCurrentRoute('/') }"
+          />
+          <span
+      class="absolute inset-x-0 -left-2 -bottom-1 h-0.5 bg-blue-600 dark:bg-blue-400 transform transition-transform duration-300"
+      :class="[
+        isCurrentRoute('/')
+          ? 'scale-x-100'
+          : 'scale-x-0 group-hover:scale-x-100'
+      ]"
+    ></span>
         </a>
       </li>
       <li v-for="item in navItems" :key="item.path">

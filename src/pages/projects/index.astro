@@ -13,6 +13,6 @@ const sortedProjects = projects.sort((a,b) =>
 const featuredProjects = sortedProjects.filter(project => project.data.featured);
 const nonFeaturedProjects = sortedProjects.filter(project => !project.data.featured);
 ---
-<Layout title="My Projects">
+<Layout title="My Projects" description='The last projects worked!'>
     <ProjectSection projects={[...featuredProjects, ...nonFeaturedProjects]} />
 </Layout>

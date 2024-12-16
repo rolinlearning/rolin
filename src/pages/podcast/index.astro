@@ -5,6 +5,6 @@ import { getCollection } from 'astro:content';
 const podcasts = await getCollection('podcast', (entry) => !entry.data.draft);
 const sortedPodcasts = podcasts.sort((a,b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 ---
-<Layout title="Podcast Episodes">
+<Layout title="Podcast Episodes" description='The latest podcast episodes'>
     <PodcastSection podcasts={sortedPodcasts} />
 </Layout>
