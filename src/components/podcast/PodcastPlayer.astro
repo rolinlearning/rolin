@@ -1,0 +1,34 @@
+---
+interface Props {
+  audioUrl: string;
+  title: string;
+}
+
+const { audioUrl, title } = Astro.props;
+---
+
+<div class="sticky bottom-0 w-full bg-white dark:bg-gray-800 border-t border-gray-200 
+            dark:border-gray-700 shadow-lg p-4 z-50">
+  <div class="max-w-4xl mx-auto">
+    <audio controls class="w-full custom-audio-player">
+      <source src={audioUrl} type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</div>
+
+<style>
+  .custom-audio-player {
+    --player-bg: theme('colors.blue.600');
+    --player-text: theme('colors.white');
+    
+    &::-webkit-media-controls-panel {
+      background-color: var(--player-bg);
+    }
+    
+    &::-webkit-media-controls-current-time-display,
+    &::-webkit-media-controls-time-remaining-display {
+      color: var(--player-text);
+    }
+  }
+</style>

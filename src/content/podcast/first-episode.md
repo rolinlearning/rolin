@@ -5,11 +5,11 @@ pubDate: 2024-06-15
 author: "John Doe"
 episodeNumber: 1
 duration: "45:30"
-audioUrl: "https://example.com/podcast/episode1.mp3"
+audioUrl: "https://drive.google.com/file/d/1yW2lsu0m59biCBhUkTfoz7dNBraDz_g2/view?usp=sharing"
 tags: ["introduction", "welcome"]
 ---
 
-## My First Podcast  #01
+## My First podcast  #01
 
 Welcome to my first blog post! Here I'll share my thoughts about building with Astro.
 

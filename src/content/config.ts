@@ -19,6 +19,7 @@ const blogCollection = defineCollection({
 const podcastCollection = defineCollection({
   type: 'content',
   schema: z.object({
+    // Your existing fields...
     title: z.string().min(1, 'Title is required'),
     description: z.string().min(1, 'Description is required'),
     pubDate: z.date({
@@ -31,6 +32,13 @@ const podcastCollection = defineCollection({
     audioUrl: z.string().url('Must be a valid URL'),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().optional().default(false),
+
+    // Potential additional fields you might find useful:
+    transcript: z.string().optional(), // For accessibility and SEO
+    season: z.number().optional(), // If you plan to organize by seasons
+    guests: z.array(z.string()).optional(), // For episodes with guests
+    imageUrl: z.string().url().optional(), // Episode-specific cover art
+    category: z.enum(['interview', 'tutorial', 'discussion', 'news']).optional(), // Episode type
   })
 });
 

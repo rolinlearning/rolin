@@ -32,6 +32,12 @@ importers:
       heroicons-astro:
         specifier: ^1.0.4
         version: 1.0.4
+      lucide-astro:
+        specifier: ^0.469.0
+        version: 0.469.0(astro@4.16.10(rollup@4.24.4)(typescript@5.6.3))
+      lucide-react:
+        specifier: ^0.469.0
+        version: 0.469.0(react@19.0.0)
       tailwindcss:
         specifier: ^3.4.14
         version: 3.4.14
@@ -1764,6 +1770,16 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
+  lucide-astro@0.469.0:
+    resolution: {integrity: sha512-JHj98KsiJ3VZE4jWUNlV1gVcTBDp8zzDt9FCrWoUUQUqM8ak/hqWRGkweqsa07HtrjjNiM6SVvBvxh1fna5fRg==}
+    peerDependencies:
+      astro: '>=2.7.1'
+
+  lucide-react@0.469.0:
+    resolution: {integrity: sha512-28vvUnnKQ/dBwiCQtwJw7QauYnE7yd2Cyp4tTTJpvglX4EMpbflcdBgrgToX2j71B3YvugK/NH3BGUk+E/p/Fw==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   magic-string@0.30.12:
     resolution: {integrity: sha512-Ea8I3sQMVXr8JhN4z+H/d8zwo+tYDgHE9+5G4Wnrwhs0gaK9fXTKx0Tw5Xwsd/bCPTTZNRAdpyzvoeORe9LYpw==}
 
@@ -2254,6 +2270,10 @@ packages:
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
+
+  react@19.0.0:
+    resolution: {integrity: sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==}
+    engines: {node: '>=0.10.0'}
 
   read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
@@ -4783,6 +4803,14 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
+  lucide-astro@0.469.0(astro@4.16.10(rollup@4.24.4)(typescript@5.6.3)):
+    dependencies:
+      astro: 4.16.10(rollup@4.24.4)(typescript@5.6.3)
+
+  lucide-react@0.469.0(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+
   magic-string@0.30.12:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
@@ -5378,6 +5406,8 @@ snapshots:
   punycode@2.3.1: {}
 
   queue-microtask@1.2.3: {}
+
+  react@19.0.0: {}
 
   read-cache@1.0.0:
     dependencies:
