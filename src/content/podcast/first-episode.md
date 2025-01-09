@@ -5,7 +5,7 @@ pubDate: 2024-06-15
 author: "John Doe"
 episodeNumber: 1
 duration: "45:30"
-audioUrl: "https://drive.google.com/file/d/1yW2lsu0m59biCBhUkTfoz7dNBraDz_g2/preview"
+audioUrl: "https://cdn.transistor.fm/file/transistor/m/shows/13470/4c277121bc86c15fad9178d34c36f928.mp3"
 tags: ["introduction", "welcome"]
 ---
 

@@ -115,41 +115,57 @@ const { podcast } = Astro.props;
     });
   }
 
-  function handlePlayClick(e) {
+  function handlePlayClick(e: any) {
     const target = e.currentTarget as HTMLButtonElement;
-    const audioContainer = target.closest('.flex');
-    const audio = audioContainer?.querySelector('audio');
+    // First, let's log which button was clicked
+    console.log("Clicked button:", target);
+    
+    // Instead of looking for flex-1 directly, let's first find the article container
+    const articleContainer = target.closest('article');
+    console.log("Article container:", articleContainer);
+    
+    // Then find the specific audio element within this article
+    const audio = articleContainer?.querySelector('.audio-preview');
     const playIcon = target.querySelector('.play-icon');
     const pauseIcon = target.querySelector('.pause-icon');
-    
-    if (audio && playIcon && pauseIcon) {
-      if (audio.paused) {
-        // Stop all other playing audio first
-        document.querySelectorAll('audio').forEach(a => {
-          if (a !== audio && !a.paused) {
-            a.pause();
-            // Reset other buttons
-            const otherButton = a.closest('.flex')?.querySelector('.play-button');
-            if (otherButton) {
-              otherButton.querySelector('.play-icon')?.classList.remove('hidden');
-              otherButton.querySelector('.pause-icon')?.classList.add('hidden');
-            }
-          }
-        });
-        
-        // Play current audio
-        audio.play().catch(error => {
-          console.error('Error playing audio:', error);
-        });
-        playIcon.classList.add('hidden');
-        pauseIcon.classList.remove('hidden');
-      } else {
-        audio.pause();
-        playIcon.classList.remove('hidden');
-        pauseIcon.classList.add('hidden');
-      }
+
+    console.log("Selected audio element:", audio);
+    if (audio) {
+        console.log("Audio source:", audio.querySelector('source')?.src);
     }
-  }
+
+    if (articleContainer && audio && playIcon && pauseIcon) {
+        if (audio.paused) {
+            // Stop all other playing audio first
+            document.querySelectorAll('.audio-preview').forEach(a => {
+                if (a !== audio && !a.paused) {
+                    a.pause();
+                    // Reset other buttons
+                    const otherContainer = a.closest('article');
+                    const otherButton = otherContainer?.querySelector('.play-button');
+                    if (otherButton) {
+                        otherButton.querySelector('.play-icon')?.classList.remove('hidden');
+                        otherButton.querySelector('.pause-icon')?.classList.add('hidden');
+                    }
+                }
+            });
+
+            audio.play()
+                .then(() => {
+                    console.log("Playing audio with source:", audio.querySelector('source')?.src);
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                })
+                .catch(error => {
+                    console.error('Error playing audio:', error);
+                });
+        } else {
+            audio.pause();
+            playIcon.classList.remove('hidden');
+            pauseIcon.classList.add('hidden');
+        }
+    }
+}
 
   // Initialize on first load
   initializeAudioPlayers();
