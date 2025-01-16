@@ -1,7 +1,7 @@
 ---
 title: "Cómo empezar en el desarrollo web: consideraciones generales"
 description: "Iniciar en el mundo del desarrollo web puede parecer un desafío, pero con la mentalidad correcta y un plan claro, es totalmente alcanzable"
-pubDate: 2022-10-15
+pubDate: 2024-12-27
 author: "Rolin Espinoza"
 image: "/blog/laptop.jpg"
 tags: ["Desarrollo web", "Empezar", "Aprendizaje"]

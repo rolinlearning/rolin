@@ -1,7 +1,7 @@
 ---
 title: "Todo lo que necesitas saber sobre el Front-end"
 description: "En el mundo digital actual, el desarrollo web es una habilidad esencial que impulsa la creación de experiencias online que usamos a diario."
-pubDate: 2024-01-05
+pubDate: 2024-12-17
 author: "Rolin Espinoza"
 image: "/blog/frontend.webp"
 tags: ["Desarrollo Web", "Front-end", "Html, css y javascript"]

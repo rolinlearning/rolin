@@ -1,7 +1,7 @@
 ---
 title: "Todo lo que necesitas saber sobre el Back-End"
 description: "El backend es la parte invisible pero esencial de cualquier aplicación web. Mientras que el frontend es lo que ves y con lo que interactúas"
-pubDate: 2022-02-24
+pubDate: 2024-12-18
 author: "Rolin Espinoza"
 image: "/blog/backend.png"
 tags: ["Desarrollo web", "Backend", "Arquitectura"]

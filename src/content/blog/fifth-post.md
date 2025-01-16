@@ -1,7 +1,7 @@
 ---
 title: "Tendencias Actuales en el Desarrollo de Aplicaciones Web"
 description: "El desarrollo web es un campo en constante evolución. Cada año, nuevas tecnologías, frameworks y herramientas emergen, cambiando la manera en que construimos aplicaciones."
-pubDate: 2024-03-02
+pubDate: 2024-12-02
 author: "Rolin Espinoza"
 image: "/blog/laptop.jpg"
 tags: ["Tendencias Actuales", "Aplicaciones Web", "Frameworks"]

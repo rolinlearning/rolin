@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import TechStack from '../components/stack/TechStack.vue';
+
+const stackEntries = await getCollection('stack');
+const stackData = stackEntries[0];
+const technologies = stackData?.data?.technologies || [];
+
+// Optional: Log to verify data
+console.log('Stack Data:', stackData?.data);
+---
+
+<Layout title="My Technology Stack">
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+      Mi Stack de Tecnologias
+    </h1>
+    <p class="text-gray-700 dark:text-gray-300 mb-8">
+      Estas son las tecnologías con las que trabajo y mi nivel de competencia en cada una de ellas.
+    </p>
+    <TechStack technologies={technologies} client:load />
+  </main>
+</Layout>

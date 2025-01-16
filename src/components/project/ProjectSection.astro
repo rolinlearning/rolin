@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry } from 'astro:content';
+import ProjectCard from './ProjectCard.vue';
 
 interface Props {
   projects: CollectionEntry<'project'>[];
@@ -7,65 +8,21 @@ interface Props {
 
 const { projects } = Astro.props;
 ---
-<section class="max-w-4xl mx-auto px-4 py-16">
-<!-- <section class="mt-16 space-y-12 max-w-4xl mx-auto px-6 md:px-8 lg:px-12"> -->
+
+<section class="py-16 px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl">
   <div class="mb-12 text-center">
-    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 mb-6 tracking-tight">
+    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 
+               mb-6 tracking-tight">
       Mis Proyectos
     </h1>
     <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-      Explora algunos de los proyectos de aplicaciones web creados con prácticas y tecnologías de desarrollo modernos. 
+      Explora algunos de los proyectos de aplicaciones web creados con tecnologías modernas. 
     </p>
   </div>
+
   <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
     {projects.map((project) => (
-      // bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group
-      <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl group">
-        <div class="p-6">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="">
-              <a href={`/projects/${project.slug}`} class="text-xl font-bold text-gray-900 dark:text-white mb-2 
-                       group-hover:text-blue-600 dark:group-hover:text-blue-400 
-                       transition-colors duration-10">
-                {project.data.title}
-              </a>
-            </h3>
-            <span class="text-sm text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
-              {project.data.projectType}
-            </span>
-          </div>
-          <p class="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
-            {project.data.description}
-          </p>
-          <div class="flex flex-wrap gap-2 mb-4">
-            {project.data.techs.map((tech: string) => (
-              <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">
-                {tech}
-              </span>
-            ))}
-          </div>
-          <div class="flex space-x-2">
-            {project.data.githubLink && (
-              <a 
-                href={project.data.githubLink} 
-                target="_blank" 
-                class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-              >
-                GitHub
-              </a>
-            )}
-            {project.data.demoLink && (
-              <a 
-                href={project.data.demoLink} 
-                target="_blank" 
-                class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-              >
-                Live Demo
-              </a>
-            )}
-          </div>
-        </div>
-      </article>
+      <ProjectCard project={project} client:visible />
     ))}
   </div>
 </section>

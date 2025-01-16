@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import PodcastCard from './PodcastCard.astro';
+// import PodcastCard from './PodcastCard.astro';
+import PodcastCard from './PodcastCard.vue';
 
 interface Props {
   podcasts: CollectionEntry<'podcast'>[];
@@ -10,6 +11,7 @@ const { podcasts } = Astro.props;
 ---
 
 <section class="py-16 px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl">
+  <!-- <section class="max-w-4xl mx-auto px-4 py-16"> -->
   <div class="mb-12 text-center">
     <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 
               mb-6 tracking-tight">
@@ -22,7 +24,7 @@ const { podcasts } = Astro.props;
 
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
     {podcasts.map((podcast) => (
-      <PodcastCard podcast={podcast} />
+      <PodcastCard podcast={podcast} client:load />
     ))}
   </div>
 </section>

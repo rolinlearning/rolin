@@ -1,7 +1,7 @@
 ---
 title: "Todo lo que necesitas saber sobre la comunicación entre el back-end y el front-end"
 description: "La comunicación entre el frontend y el backend es fundamental para que una aplicación web funcione de manera eficiente. Esta interacción permite que el frontend"
-pubDate: 2022-05-24
+pubDate: 2024-12-26
 author: "Rolin Espinoza"
 image: "/blog/communication-back-end-to-front-end.png"
 tags: ["Desarrollo web", "comunicación", "API", "REST", "JSON", "CORS"]
