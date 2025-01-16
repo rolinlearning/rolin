@@ -12,5 +12,7 @@ export default defineConfig({
         darkMode: 'class'
       }
     }
-  ), vue()]
+  ), vue()],
+  output: 'static',
+  base: '/rolin/'
 });
