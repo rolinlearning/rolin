@@ -56,20 +56,22 @@ const navItems = [
 ]
 
 const getPath = (path) => {
-  // Remove trailing slash from base path and leading slash from route path to avoid double slashes
   const cleanBasePath = basePath.replace(/\/$/, '')
   const cleanPath = path.replace(/^\//, '')
   return `${cleanBasePath}/${cleanPath}`
 }
 
 const isCurrentRoute = (path) => {
-  // Remove the base path from the current pathname for comparison
+  if (import.meta.env.SSR) {
+    return false // During SSR, default to non-active state
+  }
+  
   const currentPathWithoutBase = window.location.pathname.replace(basePath, '')
   return currentPathWithoutBase === path || (path === '/' && currentPathWithoutBase === '')
 }
 
 onMounted(() => {
-  // Update current path without the base path
+  // Only run client-side code after component is mounted
   currentPath.value = window.location.pathname.replace(basePath, '')
 
   window.addEventListener('popstate', () => {
