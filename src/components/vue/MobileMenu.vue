@@ -8,8 +8,8 @@
              transition-colors duration-300"
     >
       <span class="sr-only">Open main menu</span>
-      <bars-3-icon v-if="!isOpen" class="h-6 w-6" />
-      <x-mark-icon v-else class="h-6 w-6" />
+      <Bars3Icon v-if="!isOpen" class="h-6 w-6" />
+      <XMarkIcon v-else class="h-6 w-6" />
     </button>
 
     <transition
@@ -27,13 +27,27 @@
                dark:bg-gray-800 dark:ring-gray-700"
       >
         <div class="py-2">
+          <!-- Home Link -->
           <a
-            v-for="item in menuItems"
-            :key="item.href"
-            :href="`${base}${item.href}`"
+            :href="`${base}/`"
             :class="[
               'group flex items-center px-4 py-3 text-sm font-medium uppercase tracking-wider transition-colors duration-300',
-              isActive(item.href)
+              isActive('/') 
+                ? 'text-blue-600 dark:text-blue-400 bg-gray-50 dark:bg-gray-700/50'
+                : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+            ]"
+          >
+            <HomeIcon class="mr-3 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+            Home
+          </a>
+          <!-- Nav Items -->
+          <a
+            v-for="item in navItems"
+            :key="item.path"
+            :href="`${base}${item.path}`"
+            :class="[
+              'group flex items-center px-4 py-3 text-sm font-medium uppercase tracking-wider transition-colors duration-300',
+              isActive(item.path)
                 ? 'text-blue-600 dark:text-blue-400 bg-gray-50 dark:bg-gray-700/50'
                 : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700/50'
             ]"
@@ -42,7 +56,7 @@
               :is="item.icon"
               class="mr-3 h-5 w-5 group-hover:scale-110 transition-transform duration-300" 
             />
-            {{ item.name }}
+            {{ item.label }}
           </a>
         </div>
       </div>
@@ -51,44 +65,32 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { 
-  XMarkIcon, 
+import { ref } from 'vue'
+import {
+  Bars3Icon,
+  XMarkIcon,
   HomeIcon,
   DocumentTextIcon,
   RectangleStackIcon,
   MicrophoneIcon
-} from '@heroicons/vue/24/outline';
+} from '@heroicons/vue/24/outline'
 
-defineProps({
-  pathname: { type: String, required: true }
+const props = defineProps({
+  pathname: {
+    type: String,
+    required: true
+  }
 })
 
-const isOpen = ref(false);
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isOpen = ref(false)
 
-const menuItems = [
-  { 
-    name: 'Home', 
-    href: '/',
-    icon: HomeIcon
-  },
-  { 
-    name: 'Blog', 
-    href: '/blog',
-    icon: DocumentTextIcon
-  },
-  { 
-    name: 'Projects', 
-    href: '/projects',
-    icon: RectangleStackIcon
-  },
-  { 
-    name: 'Podcast', 
-    href: '/podcast',
-    icon: MicrophoneIcon
-  }
-];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 
-const isActive = (path: string) => props.pathname.replace(base, '') === path;
+const navItems = [
+  { path: '/blog', label: 'Blog', icon: DocumentTextIcon },
+  { path: '/projects', label: 'Proyectos', icon: RectangleStackIcon },
+  { path: '/podcast', label: 'Podcasts', icon: MicrophoneIcon }
+]
+
+const isActive = (path: string) => props.pathname.replace(base, '') === path
 </script>

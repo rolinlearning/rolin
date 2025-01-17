@@ -1,46 +1,141 @@
 ---
 import type { GetStaticPaths } from "astro";
-import Layout from "../../layouts/Layout.astro"
+import Layout from "../../layouts/Layout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { formatDate } from "../../utils/date";
 
 interface Props {
-  podcast: CollectionEntry<'podcast'>
+  podcast: CollectionEntry<'podcast'>;
 }
 
-export const getStaticPaths = ( async () => {
-  const podcasts = await getCollection('podcast')
+// Base path handling
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Utility function to handle paths
+const withBase = (path: string): string => {
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  return `${base}${cleanPath}`;
+};
+
+export const getStaticPaths = (async () => {
+  const podcasts = await getCollection('podcast');
   return podcasts.map((podcast: CollectionEntry<'podcast'>) => ({
-    params: {slug: podcast.slug},
-    props: {podcast}
+    params: { slug: podcast.slug },
+    props: { podcast }
   }));
 }) satisfies GetStaticPaths;
 
-const {podcast} = Astro.props
-const {Content} = await podcast.render()
+const { podcast } = Astro.props;
+const { Content } = await podcast.render();
+
+// Prepare meta information
+const meta = {
+  title: podcast.data.title,
+  publishDate: podcast.data.pubDate.toISOString(),
+  author: podcast.data.author,
+  description: podcast.data.description || '',
+  audioUrl: podcast.data.audioUrl ? podcast.data.audioUrl : null,
+  episodeNumber: podcast.data.episodeNumber,
+};
 ---
-<Layout title={podcast.data.title}>
-  <article class="max-w-3xl mx-auto px-6 sm:px-6 lg:px-12 py-12 prose dark:prose-invert">
-    <header class="mb-8">
-      <h1>{podcast.data.title}</h1>
-      <div class="text-sm text-gray-500 flex items-center space-x-2">
-        <time datetime={podcast.data.pubDate.toISOString()}>
-          {formatDate(podcast.data.pubDate)}
-        </time>
-        <span>•</span>
-        <span>Episodio {podcast.data.episodeNumber}</span>
-        <span>•</span>
-        <span>{podcast.data.author}</span>
+
+<Layout title={meta.title}>
+  <article class="max-w-3xl mx-auto px-6 sm:px-6 lg:px-12 py-12">
+    <header class="mb-8 space-y-4">
+      <!-- Title -->
+      <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white 
+                 tracking-tight leading-tight">
+        {meta.title}
+      </h1>
+
+      <!-- Metadata -->
+      <div class="flex flex-wrap items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+        <div class="flex items-center">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <time datetime={meta.publishDate}>
+            {formatDate(podcast.data.pubDate)}
+          </time>
+        </div>
+
+        <span class="text-gray-300 dark:text-gray-600">•</span>
+
+        <div class="flex items-center">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+          </svg>
+          <span>Episodio {meta.episodeNumber}</span>
+        </div>
+
+        <span class="text-gray-300 dark:text-gray-600">•</span>
+
+        <div class="flex items-center">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          <span>{meta.author}</span>
+        </div>
       </div>
-      {podcast.data.audioUrl && (
-        <div class="mt-4">
-          <audio controls class="w-full">
-            <source src={podcast.data.audioUrl} type="audio/mpeg"/>
-            Your browser does not support the audio element.
-          </audio>
+
+      <!-- Audio Player -->
+      {meta.audioUrl && (
+        <div class="mt-6">
+          <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 shadow-md">
+            <audio 
+              controls 
+              class="w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+              preload="metadata"
+            >
+              <source src={meta.audioUrl} type="audio/mpeg"/>
+              <p class="text-sm text-gray-500 dark:text-gray-400">
+                Your browser does not support the audio element. You can 
+                <a 
+                  href={meta.audioUrl} 
+                  class="text-blue-600 dark:text-blue-400 hover:underline"
+                  download
+                >
+                  download the episode
+                </a> instead.
+              </p>
+            </audio>
+          </div>
         </div>
       )}
     </header>
-    <Content/>
+
+    <!-- Content -->
+    <div class="prose dark:prose-invert max-w-none
+                prose-headings:font-bold prose-headings:tracking-tight
+                prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
+                prose-p:text-gray-600 prose-p:dark:text-gray-300 prose-p:leading-relaxed
+                prose-a:text-blue-600 prose-a:dark:text-blue-400 prose-a:no-underline 
+                hover:prose-a:underline
+                prose-blockquote:border-l-4 prose-blockquote:border-blue-500
+                prose-blockquote:bg-gray-50 prose-blockquote:dark:bg-gray-800/50
+                prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-r-lg
+                prose-code:text-blue-600 prose-code:dark:text-blue-400
+                prose-pre:bg-gray-900 prose-pre:dark:bg-gray-800">
+      <Content/>
+    </div>
+
+    <!-- Footer with Navigation -->
+    <footer class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+      <a 
+        href={withBase('/podcast')} 
+        class="inline-flex items-center text-gray-600 dark:text-gray-400 
+               hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+      >
+        <svg class="w-5 h-5 mr-2 rotate-180" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" 
+                d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" 
+                clip-rule="evenodd"/>
+        </svg>
+        Back to Podcast List
+      </a>
+    </footer>
   </article>
 </Layout>
