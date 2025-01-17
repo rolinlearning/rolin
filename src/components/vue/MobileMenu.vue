@@ -1,54 +1,3 @@
-<script setup lang="ts">
-import { ref, computed } from 'vue';
-import { 
-  Bars3Icon, 
-  XMarkIcon, 
-  HomeIcon,
-  DocumentTextIcon,
-  RectangleStackIcon,
-  MicrophoneIcon
-} from '@heroicons/vue/24/outline';
-
-const isOpen = ref(false);
-
-const menuItems = [
-  { 
-    name: 'Home', 
-    href: '/',
-    icon: HomeIcon
-  },
-  { 
-    name: 'Blog', 
-    href: '/blog',
-    icon: DocumentTextIcon
-  },
-  { 
-    name: 'Projects', 
-    href: '/projects',
-    icon: RectangleStackIcon
-  },
-  { 
-    name: 'Podcast', 
-    href: '/podcast',
-    icon: MicrophoneIcon
-  }
-];
-
-// Get current path
-const currentPath = computed(() => {
-  if (typeof window !== 'undefined') {
-    return window.location.pathname;
-  }
-  return '/';
-});
-
-// Find current page icon
-const currentPageIcon = computed(() => {
-  const currentItem = menuItems.find(item => item.href === currentPath.value);
-  return currentItem?.icon || HomeIcon;
-});
-</script>
-
 <template>
   <div class="flex items-center md:hidden">
     <button
@@ -81,10 +30,10 @@ const currentPageIcon = computed(() => {
           <a
             v-for="item in menuItems"
             :key="item.href"
-            :href="item.href"
+            :href="`${base}${item.href}`"
             :class="[
               'group flex items-center px-4 py-3 text-sm font-medium uppercase tracking-wider transition-colors duration-300',
-              currentPath === item.href
+              isActive(item.href)
                 ? 'text-blue-600 dark:text-blue-400 bg-gray-50 dark:bg-gray-700/50'
                 : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700/50'
             ]"
@@ -100,3 +49,46 @@ const currentPageIcon = computed(() => {
     </transition>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { 
+  XMarkIcon, 
+  HomeIcon,
+  DocumentTextIcon,
+  RectangleStackIcon,
+  MicrophoneIcon
+} from '@heroicons/vue/24/outline';
+
+defineProps({
+  pathname: { type: String, required: true }
+})
+
+const isOpen = ref(false);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const menuItems = [
+  { 
+    name: 'Home', 
+    href: '/',
+    icon: HomeIcon
+  },
+  { 
+    name: 'Blog', 
+    href: '/blog',
+    icon: DocumentTextIcon
+  },
+  { 
+    name: 'Projects', 
+    href: '/projects',
+    icon: RectangleStackIcon
+  },
+  { 
+    name: 'Podcast', 
+    href: '/podcast',
+    icon: MicrophoneIcon
+  }
+];
+
+const isActive = (path: string) => props.pathname.replace(base, '') === path;
+</script>
