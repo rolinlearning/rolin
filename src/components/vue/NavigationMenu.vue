@@ -2,7 +2,7 @@
   <nav class="mt-6 md:mt-8">
     <ul class="flex items-center justify-center md:justify-start space-x-8">
       <li>
-        <a :href="getPath('/')" class="group relative flex items-center space-x-2" :class="[
+        <a :href="$astro.site?.pathname || '/'" class="group relative flex items-center space-x-2" :class="[
           isCurrentRoute('/')
             ? 'text-blue-600 dark:text-blue-400'
             : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
@@ -46,8 +46,15 @@
 import { ref, onMounted } from 'vue'
 import { HomeIcon, DocumentTextIcon, RectangleStackIcon, MicrophoneIcon } from '@heroicons/vue/24/outline'
 
-const currentPath = ref('/')
-const basePath = '/repo-name' // Make sure this matches your Astro config base
+// Define props to receive Astro path info
+const props = defineProps({
+  pathname: {
+    type: String,
+    default: '/'
+  }
+})
+
+const currentPath = ref(props.pathname)
 
 const navItems = [
   { path: '/blog', label: 'Blog', icon: DocumentTextIcon },
@@ -56,26 +63,29 @@ const navItems = [
 ]
 
 const getPath = (path) => {
-  const cleanBasePath = basePath.replace(/\/$/, '')
+  // Use import.meta.env.BASE_URL which Astro automatically sets based on your config
+  const base = import.meta.env.BASE_URL
   const cleanPath = path.replace(/^\//, '')
-  return `${cleanBasePath}/${cleanPath}`
+  return `${base}${cleanPath}`
 }
 
 const isCurrentRoute = (path) => {
   if (import.meta.env.SSR) {
-    return false // During SSR, default to non-active state
+    // During SSR, use the pathname prop
+    return props.pathname === path
   }
   
-  const currentPathWithoutBase = window.location.pathname.replace(basePath, '')
+  // In the browser, use the current path without base
+  const currentPathWithoutBase = window.location.pathname.replace(import.meta.env.BASE_URL, '')
   return currentPathWithoutBase === path || (path === '/' && currentPathWithoutBase === '')
 }
 
 onMounted(() => {
-  // Only run client-side code after component is mounted
-  currentPath.value = window.location.pathname.replace(basePath, '')
+  // Update path on client side
+  currentPath.value = window.location.pathname.replace(import.meta.env.BASE_URL, '')
 
   window.addEventListener('popstate', () => {
-    currentPath.value = window.location.pathname.replace(basePath, '')
+    currentPath.value = window.location.pathname.replace(import.meta.env.BASE_URL, '')
   })
 })
 </script>

@@ -35,12 +35,12 @@ import MobileMenu from "./vue/MobileMenu.vue";
 
          <!-- Desktop Navigation -->
          <div class="hidden md:block">
-          <NavigationMenu client:load />
+          <NavigationMenu client:load pathname={Astro.url.pathname} />
         </div>
 
         <!-- Mobile Menu Button -->
         <div class="md:hidden absolute top-4 right-4">
-          <MobileMenu client:load />
+          <MobileMenu client:load pathname={Astro.url.pathname} />
         </div>
       </div>
     </div>
