@@ -14,7 +14,7 @@ export default defineConfig({
     }
   ), vue()],
   site: 'https://rolinlearning.github.io',
-  base: '/',
+  base: '/rolin',
   output: 'static',
   build: {
     // Enable performance optimizations
