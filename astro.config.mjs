@@ -13,6 +13,16 @@ export default defineConfig({
       }
     }
   ), vue()],
+  site: 'https://rolinlearning.github.io',
+  base: '/rolin/',
   output: 'static',
-  base: '/rolin/'
+  build: {
+    // Enable performance optimizations
+    inlineStylesheets: 'auto',
+    minify: true,
+    // Split large pages into smaller chunks
+    splitting: true,
+    // Reduce the size of your JavaScript bundles
+    format: 'file'
+  }
 });
