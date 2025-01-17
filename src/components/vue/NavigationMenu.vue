@@ -50,7 +50,7 @@ import { HomeIcon, DocumentTextIcon, RectangleStackIcon, MicrophoneIcon } from '
 const currentPath = ref('/')
 
 const navItems = [
-  { path: '/blog/', label: 'Blog', icon: DocumentTextIcon },
+  { path: 'rolin/blog', label: 'Blog', icon: DocumentTextIcon },
   { path: '/projects', label: 'Proyectos', icon: RectangleStackIcon },
   { path: '/podcast', label: 'Podcasts', icon: MicrophoneIcon }
 ]
