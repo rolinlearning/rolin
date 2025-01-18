@@ -6,16 +6,12 @@
                 <img v-if="project.data.image?.src" 
                      :src="resolveImagePath(project.data.image.src)"
                      :alt="project.data.image.alt"
+                     @error="handleImageError"
                      class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300" />
                 <div v-else class="w-full h-full flex items-center justify-center text-gray-400">
                     <Code class="w-12 h-12" />
                 </div>
             </div>
-
-            <span class="absolute top-4 right-4 text-sm text-gray-500 bg-white dark:bg-gray-800 
-                        px-3 py-1 rounded-full shadow-md">
-                {{ project.data.projectType }}
-            </span>
         </div>
 
         <div class="p-6">
@@ -71,45 +67,40 @@
         </div>
     </article>
 </template>
-
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { ArrowUpRight, ExternalLink, Github, Code } from 'lucide-vue-next';
 import type { CollectionEntry } from 'astro:content';
 
-// Types
-interface ProjectImage {
-    src: string;
-    alt: string;
-}
-
-interface ProjectData {
-    title: string;
-    description: string;
-    image?: ProjectImage;
-    techs: string[];
-    githubLink?: string;
-    demoLink?: string;
-    featured?: boolean;
-    projectType: 'frontend' | 'backend' | 'fullstack' | 'mobile' | 'other';
-    startDate?: Date;
-    endDate?: Date;
-    draft?: boolean;
-}
-
-// Props
+// Types remain the same...
 interface Props {
     project: CollectionEntry<'project'>;
 }
 
 const props = defineProps<Props>();
+const imageLoadError = ref(false);
 
-// Path utilities
-const base = computed(() => import.meta.env.BASE_URL.replace(/\/$/, ''));
+// Updated path resolution for GitHub Pages
+const base = computed(() => {
+    const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+    const repoName = import.meta.env.PUBLIC_GITHUB_REPO || '';
+    return import.meta.env.PROD ? `/${repoName}${baseUrl}` : baseUrl;
+});
 
 const resolveImagePath = (path: string): string => {
     if (path.startsWith('http')) return path;
-    return `${base.value}${path.startsWith('/') ? '' : '/'}${path}`;
+    if (path.startsWith('data:')) return path;
+    
+    // Remove any leading slashes
+    const cleanPath = path.replace(/^\/+/, '');
+    
+    // Construct the full path
+    return `${base.value}/${cleanPath}`;
+};
+
+const handleImageError = () => {
+    imageLoadError.value = true;
+    console.error(`Failed to load image: ${props.project.data.image?.src}`);
 };
 
 const resolveProjectPath = (slug: string): string => {
