@@ -94,19 +94,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-
-// Types
-interface Technology {
-  name: string;
-  icon: string;
-  level: number;
-  category: string;
-}
-
-interface TechnologyGroup {
-  name: string;
-  items: Technology[];
-}
+import type { Technology, TechnologyGroup } from '../../types/stack';
 
 // Props
 interface Props {

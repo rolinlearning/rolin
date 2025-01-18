@@ -1,11 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-import TechStack from '../components/stack/TechStack.vue';
+import Layout from '../../layouts/Layout.astro';
+import TechStack from '../../components/stack/TechStack.vue';
+import type { Technology } from '../../types/stack';
 
 const stackEntries = await getCollection('stack');
 const stackData = stackEntries[0];
-const technologies = stackData?.data?.technologies || [];
+const technologies = (stackData?.data?.technologies || []) as Technology[];
 
 // Optional: Log to verify data
 console.log('Stack Data:', stackData?.data);

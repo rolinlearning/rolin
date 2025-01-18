@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import RoadmapItem from '../../components/roadmap/RoadmapItem.vue';
+import type { Topic } from '../../types/roadmap';
+
+const roadmapEntries = await getCollection('roadmap');
+const roadmapData = roadmapEntries[0];
+
+const topics = (roadmapData?.data?.topics || []) as Topic[];
+---
+
+<Layout title='developer roadmap section' description='developer roadmap'>
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <h1>Developer Roadmap</h1>
+    <p>
+      {roadmapData?.data?.description || 
+        "My learning journey and future development plans."}
+    </p>
+    <div>
+      {topics.map((topic) => (
+        <RoadmapItem topic={topic} />
+      ))}
+    </div>
+  </main>
+</Layout>
