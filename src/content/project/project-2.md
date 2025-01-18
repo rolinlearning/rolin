@@ -2,7 +2,7 @@
 title: "Aplicación Web de E-Commerce"
 description: "Una plataforma de e-commerce robusta que ofrece una experiencia de compra en línea fluida, con gestión de productos, carrito de compras, y generación de órdenes."
 image:
-  src: "/src/assets/projects/ecommerce-homepage.webp"
+  src: "/projects/ecommerce-homepage.webp"
   alt: "Página de inicio de la aplicación web de e-commerce"
 techs: ["Java", "Spring Boot", "Spring Security", "JWT", "Thymeleaf", "MySQL", "JPA/Hibernate"]
 projectType: "fullstack"

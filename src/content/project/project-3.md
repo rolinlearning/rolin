@@ -2,7 +2,7 @@
 title: "Authentication API"
 description: "Una API de autenticación segura y escalable creada con Java 17, Spring Boot y otras tecnologías modernas."
 image:
-  src: "/src/assets/projects/authentication-api.jpg"
+  src: "/projects/authentication-api.jpg"
   alt: "Screenshot of Authentication API project"
 techs: ["Java 17", "Spring Boot", "Maven", "Spring Security", "MySQL", "JWT", "Spring Data JPA", "Lombok", "Swagger"]
 githubLink: "https://github.com/rolinlearning/authentication-api"

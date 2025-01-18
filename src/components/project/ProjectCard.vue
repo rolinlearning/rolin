@@ -1,9 +1,8 @@
 <template>
-    <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden 
-                  hover:shadow-xl group transition-all duration-300">
+    <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden group transition-all duration-300 hover:shadow-xl">
         <div class="relative">
             <div class="aspect-video bg-gray-100 dark:bg-gray-700 overflow-hidden">
-                <img v-if="project.data.image?.src" 
+                <img v-if="project.data.image?.src && !imageLoadError" 
                      :src="resolveImagePath(project.data.image.src)"
                      :alt="project.data.image.alt"
                      @error="handleImageError"
@@ -15,50 +14,41 @@
         </div>
 
         <div class="p-6">
-            <!-- Title -->
             <h3 class="mb-3">
                 <a :href="resolveProjectPath(project.slug)" 
-                   class="text-xl font-bold text-gray-900 dark:text-white
-                          group-hover:text-blue-600 dark:group-hover:text-blue-400 
-                          transition-colors duration-300 inline-flex items-center gap-2">
+                   class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 inline-flex items-center gap-2">
                     {{ project.data.title }}
                     <ArrowUpRight class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </a>
             </h3>
 
-            <!-- Description -->
             <p class="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
                 {{ project.data.description }}
             </p>
 
-            <!-- Tech Stack -->
             <div class="flex flex-wrap gap-2 mb-6">
                 <span v-for="tech in project.data.techs" 
                       :key="tech"
-                      class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 
-                            px-3 py-1 rounded-full font-medium">
+                      class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full font-medium">
                     {{ tech }}
                 </span>
             </div>
 
-            <!-- Links -->
             <div class="flex items-center gap-4">
                 <a v-if="project.data.githubLink"
                    :href="project.data.githubLink"
                    target="_blank"
                    rel="noopener noreferrer"
-                   class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 
-                          dark:text-gray-300 dark:hover:text-white transition-colors duration-300"
+                   class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors duration-300"
                    aria-label="View source code on GitHub">
-                    <Github class="w-5 h-5" />
+                    <GitBranchPlusIcon class="w-5 h-5" />
                     <span>Source</span>
                 </a>
                 <a v-if="project.data.demoLink"
                    :href="project.data.demoLink"
                    target="_blank"
                    rel="noopener noreferrer"
-                   class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 
-                          dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+                   class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
                    aria-label="View live demo">
                     <ExternalLink class="w-5 h-5" />
                     <span>Live Demo</span>
@@ -67,12 +57,12 @@
         </div>
     </article>
 </template>
+
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { ArrowUpRight, ExternalLink, Github, Code } from 'lucide-vue-next';
+import { ArrowUpRight, ExternalLink, GitBranchPlusIcon, Code } from 'lucide-vue-next';
 import type { CollectionEntry } from 'astro:content';
 
-// Types remain the same...
 interface Props {
     project: CollectionEntry<'project'>;
 }
@@ -80,21 +70,19 @@ interface Props {
 const props = defineProps<Props>();
 const imageLoadError = ref(false);
 
-// Updated path resolution for GitHub Pages
 const base = computed(() => {
-    const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
-    const repoName = import.meta.env.PUBLIC_GITHUB_REPO || '';
-    return import.meta.env.PROD ? `/${repoName}${baseUrl}` : baseUrl;
+    // Use the base path from Astro config
+    return import.meta.env.BASE_URL.replace(/\/$/, '');
 });
 
 const resolveImagePath = (path: string): string => {
-    if (path.startsWith('http')) return path;
-    if (path.startsWith('data:')) return path;
+    // Handle external URLs and data URLs
+    if (path.startsWith('http') || path.startsWith('data:')) return path;
     
-    // Remove any leading slashes
-    const cleanPath = path.replace(/^\/+/, '');
+    // Remove leading slash if present
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
     
-    // Construct the full path
+    // Add base path
     return `${base.value}/${cleanPath}`;
 };
 

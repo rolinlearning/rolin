@@ -17,6 +17,20 @@ export default defineConfig({
   base: '/rolin/',
   output: 'static',
   build: {
+    assets: 'assets',  // Add this to optimize asset handling
+    inlineStylesheets: 'auto',
+    minify: true,
+    splitting: true,
+    format: 'file'
+  },
+  image: {
+    // Add image optimization settings
+    service: {
+      entrypoint: 'astro/assets/services/sharp'
+    },
+    remotePatterns: [{
+      protocol: 'https'
+    }],
     // Enable performance optimizations
     inlineStylesheets: 'auto',
     minify: true,

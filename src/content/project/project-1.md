@@ -2,7 +2,7 @@
 title: "Chaclamedic Website"
 description: "Un sitio web moderno y fácil de usar para un centro médico que agiliza el acceso a la información de los pacientes y la concertación de citas."
 image:
-  src: "/src/assets/projects/chaclamedic-website.png"
+  src: "/projects/chaclamedic-website.png"
   alt: "Screenshot of My Project dashboard"
 techs: ["HTML5", "CSS3", "JavaScript", "SASS", "Bootstrap"]
 githubLink: "https://github.com/rolinlearning/chaclamedic"

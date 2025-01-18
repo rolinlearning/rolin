@@ -2,7 +2,7 @@
 title: "Today"
 description: "Una aplicación de gestión de tareas para las actividades diarias."
 image:
-  src: "/src/assets/projects/today.webp"
+  src: "/projects/today.webp"
   alt: "Screenshot of Authentication API project"
 techs: ["React", "IndexedDB", "Tailwind CSS"]
 githubLink: "https://github.com/rolinlearning/today.git"
