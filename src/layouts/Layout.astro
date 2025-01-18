@@ -33,14 +33,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
     />
 
     <!-- Primary font loading -->
+    <!-- @ts-expect-error - media is read by onload -->
     <link 
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400&family=Inter:wght@400;600&display=swap"
       media="print"
       onload="this.media='all'"
     />
-
-    <!-- Secondary (deferred) font loading -->
+    
+    <!-- @ts-expect-error - media is read by onload -->
     <link 
       rel="stylesheet" 
       href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,700;1,400;1,700&family=Inter:wght@100;200;300;500;700;800;900&display=swap"
